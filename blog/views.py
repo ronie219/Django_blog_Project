@@ -1,12 +1,14 @@
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
-from blog.forms import PostForm, CommentForm
+# from django.contrib.auth.forms import UserCreationForm
+from blog.forms import PostForm, CommentForm, RegistrationForm
 from blog.models import Post, Comments
+from django.contrib import messages
 
 
 class AboutView(TemplateView):
@@ -92,12 +94,34 @@ def remove_comment(request, pk):
     return redirect('post_detail', pk=post_pk)
 
 
-def register(request):
+# Register Page
+def registerPage(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            messages.success(request, 'Account Created Successfully')
+            return redirect('login')
     else:
-        form = UserCreationForm()
+        form = RegistrationForm()
     return render(request, 'accounts/registration.html', {'form': form})
+
+
+# Login Page
+def loginPage(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            messages.info(request, "Invalid Username or password")
+    context = {}
+    return render(request, 'accounts/login.html', context)
+
+
+def logoutPage(request):
+    logout(request)
+    return redirect('post_list')

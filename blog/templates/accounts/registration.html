@@ -1,9 +1,30 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-  <h1>Create an account</h1>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" name="Register"></button>
-  </form>
+  <div class="jumbotron">
+    <form method="POST">
+      {% csrf_token %}
+      <h1>Create an account</h1>
+      <p>{{form.first_name.label}}
+      {{form.first_name}}</p>
+
+      <p>{{form.last_name.label}}
+      {{form.last_name}}</p>
+
+      <p>{{form.username.label}}
+      {{form.username}}</p>
+
+      <p>{{form.email.label}}
+      {{form.email}}</p>
+
+      <p>{{form.password1.label}}
+      {{form.password1}}</p>
+
+      <p>{{form.password2.label}}
+      {{form.password2}}</p>
+
+      <button class="btn btn-primary btn-lg"  type="submit" name="Register">Register</button>
+      {{form.errors}}
+    </form>
+
+    </div>
 {% endblock %}

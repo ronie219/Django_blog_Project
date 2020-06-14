@@ -37,10 +37,10 @@
 
 
       <ul class="nav navbar-nav">
-        <li><a class='navbar-brand bigbrand' href="{% url 'post_list' %}">My Tech blog</a></li>
+        <li><a class='navbar-brand bigbrand' href="{% url 'post_list' %}">Blog Home</a></li>
         <li><a href="{% url 'about'%}">About</a></li>
-        <li><a href="https://www.github.com">Github</a></li>
-        <li><a href="https://www.linkedin.com">LinkedIn</a></li>
+        <li><a href="https://github.com/ronie219/Django_blog_Project.git">Github</a></li>
+        <li><a href="https://www.linkedin.com/in/abhishek-biswas-0590601a0/">LinkedIn</a></li>
 
       </ul>
 
@@ -61,6 +61,9 @@
           <a >Welcome: {{ user.username }}</a>
         </li>
           {% else %}
+          <li>
+            <a href="{% url 'register' %}" >Registration</a>
+          </li>
           <li><a class='nav navbar-right' href="{% url 'login' %}" ><span class="glyphicon glyphicon-user"></span></a></li>
         {% endif %}
 

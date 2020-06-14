@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<h3>Login Here</h3>
+<form method="POST">
+  {% csrf_token %}
+  <p><label for="username">Username</label>
+  <input type="text" name="username" value=""></p>
+
+  <p><label for="password">Password</label>
+  <input type="password" name="password" value=""></p>
+
+  <button type="submit" name="button">LoGin</button>
+  {% for m in messages %}
+    <p>{{m}}</p>
+  {% endfor %}
+</form>
+{% endblock %}
